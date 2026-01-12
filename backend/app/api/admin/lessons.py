@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from datetime import datetime
 from uuid import UUID
-
+from app.services.program_status import sync_program_status
 from app.db.session import get_db
 from app.models.lesson import Lesson, LessonStatus
 from app.schemas.lesson import LessonSchedule
@@ -61,10 +61,9 @@ def publish_now(
     lesson.published_at = datetime.utcnow()
     lesson.publish_at = None
 # 🔥 NEW LOGIC
-    program = lesson.term.program
-    program.status = ProgramStatus.published
-
     db.commit()
+    sync_program_status(db, lesson.program_id)
+
     return {"status": "published"}
 
 
@@ -86,6 +85,8 @@ def schedule_publish(
     lesson.published_at = None
 
     db.commit()
+    sync_program_status(db, lesson.program_id)
+
     return {"status": "scheduled"}
 
 
