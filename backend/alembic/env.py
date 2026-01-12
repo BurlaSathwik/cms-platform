@@ -14,6 +14,15 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 # Alembic Config
 # -------------------------------------------------
 config = context.config
+# -------------------------------------------------
+# FORCE Alembic to use DATABASE_URL from environment
+# -------------------------------------------------
+database_url = os.getenv("DATABASE_URL")
+
+if not database_url:
+    raise RuntimeError("DATABASE_URL is not set")
+
+config.set_main_option("sqlalchemy.url", database_url)
 
 # Interpret the config file for Python logging
 if config.config_file_name is not None:
