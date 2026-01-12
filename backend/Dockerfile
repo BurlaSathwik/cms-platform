@@ -12,6 +12,7 @@ COPY alembic alembic
 COPY app app
 
 # 🔥 THIS LINE WAS MISSING
-COPY start.sh start.sh
+COPY start.sh .
+RUN chmod +x start.sh
 
-CMD ["sh", "/app/start.sh"]
+CMD ["./start.sh"]
