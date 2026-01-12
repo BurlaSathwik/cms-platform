@@ -6,15 +6,21 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role"));
 
-  const login = (token) => {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-
-    // ✅ STORE TOKEN (CRITICAL)
+  const login = async (token) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("role", payload.role);
-
     setToken(token);
-    setRole(payload.role);
+
+    // 🔥 ALWAYS FETCH ROLE FROM BACKEND
+    const res = await fetch("https://cms-api-y505.onrender.com/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    localStorage.setItem("role", data.role);
+    setRole(data.role);
   };
 
   const logout = () => {

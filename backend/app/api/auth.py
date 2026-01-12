@@ -5,8 +5,16 @@ from app.schemas.auth import LoginRequest, SignupRequest, TokenResponse
 from app.models.user import User, UserRole
 from app.db.session import SessionLocal
 from app.core.security import hash_password, verify, create_token
+from fastapi import Depends
+from app.core.security import get_current_user
 
 router = APIRouter()
+@router.get("/me")
+def me(current_user: User = Depends(get_current_user)):
+    return {
+        "email": current_user.email,
+        "role": current_user.role.value
+    }
 
 @router.post("/signup", response_model=TokenResponse)
 def signup(data: SignupRequest):
