@@ -28,7 +28,7 @@ git clone https://github.com/BurlaSathwik/cms-platform.git
 
 cd cms-platform
 
-###2️⃣ Environment Variables
+### 2️⃣ Environment Variables
 
 Create .env file in project root:
 
@@ -36,7 +36,7 @@ DATABASE_URL=postgresql://cms:cms@db:5432/cmsdb
 
 JWT_SECRET=supersecret
 
-###3️⃣ Run Locally (Docker)
+### 3️⃣ Run Locally (Docker)
 docker compose up --build
 
 
@@ -159,7 +159,7 @@ But for this project:
 - No paid worker service required
 - Fully functional on Render Free Tier
 
-##⚙ Worker / Scheduler
+## ⚙ Worker / Scheduler
 
 The scheduler logic runs inside the API process.
 
@@ -177,15 +177,15 @@ status = published
 
 No external cron service is required.
 
-##🎬 Demo Flow
+## 🎬 Demo Flow
 
-###1️⃣ Login as Editor
+### 1️⃣ Login as Editor
 
 Open CMS Web
 
 Login using editor credentials
 
-###2️⃣ Create / Edit Lesson
+### 2️⃣ Create / Edit Lesson
 
 Create a Program
 
@@ -199,13 +199,13 @@ status = scheduled
 
 publish_at = future timestamp
 
-###3️⃣ Wait for Worker
+### 3️⃣ Wait for Worker
 
 Wait until publish_at time passes
 
 Scheduler auto-publishes the lesson
 
-###4️⃣ Verify Public Catalog
+### 4️⃣ Verify Public Catalog
 
 Open Public Catalog
 
@@ -241,7 +241,7 @@ postgres
 
 Run with:
 
-###docker compose up --build
+### docker compose up --build
 
 ✅ Key Features
 
