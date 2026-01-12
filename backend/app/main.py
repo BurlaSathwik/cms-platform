@@ -28,15 +28,17 @@ def startup():
     Base.metadata.create_all(bind=engine)
 
 # ✅ CORS (Render + local)
+origins = [
+    "https://cms-web-dwq1.onrender.com",  # frontend
+    "http://localhost:5173",              # local dev (optional)
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "https://*.onrender.com",
-    ],
+    allow_origins=origins,        # ❌ DO NOT use ["*"] with credentials
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],          # GET, POST, PUT, DELETE, OPTIONS
+    allow_headers=["*"],          # Authorization, Content-Type, etc
 )
 
 # AUTH
