@@ -80,7 +80,7 @@ Create users via API:
 POST /auth/register
 
 
-Example:
+### use these credentials in website to become a editor :
 
 {
   "email": "editor@test.com",
