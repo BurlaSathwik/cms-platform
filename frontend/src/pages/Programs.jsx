@@ -16,7 +16,7 @@ export default function Programs() {
   useEffect(() => {
     if (!role) return;
 
-    apiFetch("/admin/programs")
+    apiFetch("/admin/programs/")
       .then(setPrograms)
       .catch(console.error);
   }, [role]);

@@ -12,7 +12,7 @@ export default function CreateProgram() {
   const submit = async (e) => {
     e.preventDefault();
 
-    const program = await apiFetch("/admin/programs", {
+    const program = await apiFetch("/admin/programs/", {
       method: "POST",
       body: JSON.stringify({
         title,
