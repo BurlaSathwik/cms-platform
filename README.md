@@ -131,17 +131,67 @@ admin
 
 viewer
 
-🚀 Deployment
-🌍 Deployed URLs
+## 🌍 Deployed URLs
 
-CMS Web App
-👉 https://cms-web.onrender.com
+- **CMS Web App**  
+  👉 https://cms-web-dwq1.onrender.com
 
-API
-👉 https://cms-api.onrender.com
+- **API**  
+  👉 https://cms-api-y505.onrender.com
 
-Health Check
-👉 https://cms-api.onrender.com/healthz
+---
+
+## ⚙ Worker / Background Jobs (Important Note)
+
+### ❗ Render Limitation (Free Tier)
+
+Running a **separate background worker / cron service** on Render **requires a paid plan**.
+
+On the **free tier**:
+- Only one web service is allowed
+- Background workers and cron jobs are **not supported**
+
+---
+
+### ✅ Current Implementation (Free-Tier Friendly)
+
+To avoid extra cost:
+
+- The **worker logic is embedded inside the API process**
+- No separate worker service is deployed
+
+### How it works:
+- On API startup, a background task runs periodically
+- It checks lessons where:
+  - `status = scheduled`
+  - `publish_at <= current time`
+- Automatically updates them to:
+  - `status = published`
+
+✅ This achieves scheduled publishing **without spending money**
+
+---
+
+### 💰 Paid Alternative (Optional)
+
+If upgraded to a paid plan:
+- A **dedicated worker service** can be created
+- Cleaner separation of concerns
+- Better scalability for large workloads
+
+But for this project:
+> **Inline worker inside API is intentional to keep deployment free**
+
+---
+
+## 🧠 Summary
+
+- Two deployed services:
+  - CMS Web (frontend)
+  - API (backend + worker)
+- Background scheduler runs **inside API**
+- No paid worker service required
+- Fully functional on Render Free Tier
 
 ⚙ Worker / Scheduler
 
