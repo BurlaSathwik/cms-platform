@@ -8,7 +8,7 @@ from app.models.lesson import Lesson, LessonStatus
 from app.schemas.lesson import LessonSchedule
 from app.schemas.lesson import LessonCreateBasic
 from app.core.rbac import require_editor, require_viewer
-
+from app.models.program import  ProgramStatus
 router = APIRouter()
 
 
@@ -60,6 +60,9 @@ def publish_now(
     lesson.status = LessonStatus.published
     lesson.published_at = datetime.utcnow()
     lesson.publish_at = None
+# 🔥 NEW LOGIC
+    program = lesson.term.program
+    program.status = ProgramStatus.published
 
     db.commit()
     return {"status": "published"}
