@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://cms-api-y505.onrender.com";
+const API_URL = "https://cms-api-y505.onrender.com";
 
 export async function apiFetch(path, options = {}) {
   const token = localStorage.getItem("token");
