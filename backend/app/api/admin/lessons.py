@@ -62,7 +62,8 @@ def publish_now(
     lesson.publish_at = None
 # 🔥 NEW LOGIC
     db.commit()
-    sync_program_status(db, lesson.program_id)
+    sync_program_status(db, lesson.term.program_id)
+
 
     return {"status": "published"}
 
@@ -85,7 +86,8 @@ def schedule_publish(
     lesson.published_at = None
 
     db.commit()
-    sync_program_status(db, lesson.program_id)
+    sync_program_status(db, lesson.term.program_id)
+
 
     return {"status": "scheduled"}
 

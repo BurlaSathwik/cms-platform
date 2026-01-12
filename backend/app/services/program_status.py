@@ -3,13 +3,16 @@ from datetime import datetime
 
 from app.models.program import Program, ProgramStatus
 from app.models.lesson import Lesson, LessonStatus
+from app.models.term import Term
 
 
 def sync_program_status(db: Session, program_id):
+    # count published lessons belonging to this program
     published_count = (
         db.query(Lesson)
+        .join(Term)
         .filter(
-            Lesson.program_id == program_id,
+            Term.program_id == program_id,
             Lesson.status == LessonStatus.published,
         )
         .count()
