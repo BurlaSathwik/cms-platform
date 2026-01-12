@@ -20,7 +20,7 @@ from app.api.catalog import lessons as catalog_lessons
 from app.api.auth import router as auth_router
 from app.health import router as health_router
 
-app = FastAPI(title="CMS Platform", redirect_slashes=False)
+app = FastAPI(title="CMS Platform")
 
 # ✅ AUTO CREATE TABLES (NO ALEMBIC)
 @app.on_event("startup")
@@ -46,20 +46,20 @@ app.include_router(auth_router, prefix="/auth", tags=["Auth"])
 app.include_router(health_router, tags=["Health"])
 
 # 🔐 ADMIN / CMS
-app.include_router(admin_programs.router, prefix="/admin/programs", tags=["Admin Programs"])
-app.include_router(admin_terms.router, prefix="/admin/terms", tags=["Admin Terms"])
-app.include_router(admin_lessons.router, prefix="/admin/lessons", tags=["Admin Lessons"])
-app.include_router(users.router, prefix="/admin/users", tags=["Admin Users"])
+app.include_router(admin_programs.router, prefix="/admin/programs/", tags=["Admin Programs"])
+app.include_router(admin_terms.router, prefix="/admin/terms/", tags=["Admin Terms"])
+app.include_router(admin_lessons.router, prefix="/admin/lessons/", tags=["Admin Lessons"])
+app.include_router(users.router, prefix="/admin/users/", tags=["Admin Users"])
 
 app.include_router(
     program_assets.router,
-    prefix="/admin/programs",
+    prefix="/admin/programs/",
     tags=["Program Assets"],
 )
 
 app.include_router(
     lesson_assets.router,
-    prefix="/admin/lessons",
+    prefix="/admin/lessons/",
     tags=["Lesson Assets"],
 )
 
