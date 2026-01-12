@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: cms
+      POSTGRES_PASSWORD: cms
+      POSTGRES_DB: cmsdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    env_file: .env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app   # 🔥 THIS IS THE KEY LINE
+
+  worker:
+    build: ./backend
+    command: python app/worker/publish_worker.py
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app   # 🔥 ADD THIS TOO
+
+  web:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+
+volumes:
+  postgres_data:
