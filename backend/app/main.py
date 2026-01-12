@@ -20,7 +20,7 @@ from app.api.catalog import lessons as catalog_lessons
 from app.api.auth import router as auth_router
 from app.health import router as health_router
 
-app = FastAPI(title="CMS Platform")
+app = FastAPI(title="CMS Platform", redirect_slashes=False)
 
 # ✅ AUTO CREATE TABLES (NO ALEMBIC)
 @app.on_event("startup")
