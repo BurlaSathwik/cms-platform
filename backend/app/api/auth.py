@@ -9,12 +9,7 @@ from fastapi import Depends
 from app.core.security import get_current_user
 
 router = APIRouter()
-@router.get("/me")
-def me(current_user: User = Depends(get_current_user)):
-    return {
-        "email": current_user.email,
-        "role": current_user.role.value
-    }
+
 
 @router.post("/signup", response_model=TokenResponse)
 def signup(data: SignupRequest):
@@ -56,3 +51,11 @@ def login(data: LoginRequest):
     })
 
     return {"access_token": token}
+
+
+@router.get("/me")
+def me(current_user: User = Depends(get_current_user)):
+    return {
+        "email": current_user.email,
+        "role": current_user.role.value,
+    }
