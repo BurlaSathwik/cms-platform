@@ -25,15 +25,18 @@ A full-stack Content Management System (CMS) that allows admins and editors to m
 ### 1️⃣ Clone Repository
 
 git clone https://github.com/BurlaSathwik/cms-platform.git
+
 cd cms-platform
-2️⃣ Environment Variables
+
+###2️⃣ Environment Variables
 
 Create .env file in project root:
 
 DATABASE_URL=postgresql://cms:cms@db:5432/cmsdb
+
 JWT_SECRET=supersecret
 
-3️⃣ Run Locally (Docker)
+###3️⃣ Run Locally (Docker)
 docker compose up --build
 
 
@@ -46,6 +49,7 @@ CMS Web → http://localhost:5173
 PostgreSQL → port 5432
 
 🗄 Database & Migrations
+
 ❌ Alembic Not Used in Production
 
 This project does not use Alembic in production.
@@ -68,6 +72,7 @@ No migration failures
 Reproducible schema from code
 
 🌱 Seeding Data
+
 Manual Seed (Recommended)
 
 Create users via API:
@@ -79,7 +84,9 @@ Example:
 
 {
   "email": "editor@test.com",
+  
   "password": "password123",
+  
   "role": "editor"
 }
 
@@ -104,9 +111,9 @@ viewer
 
 ### ❗ Render Limitation (Free Tier)
 
-Running a **separate background worker / cron service** on Render **requires a paid plan**.
+Running a separate background worker / cron service on Render requires a paid plan.
 
-On the **free tier**:
+On the free tier:
 - Only one web service is allowed
 - Background workers and cron jobs are **not supported**
 
@@ -122,10 +129,10 @@ To avoid extra cost:
 ### How it works:
 - On API startup, a background task runs periodically
 - It checks lessons where:
-  - `status = scheduled`
-  - `publish_at <= current time`
+  - status = scheduled
+  - publish_at <= current time
 - Automatically updates them to:
-  - `status = published`
+  - status = published
 
 ✅ This achieves scheduled publishing **without spending money**
 
@@ -152,7 +159,7 @@ But for this project:
 - No paid worker service required
 - Fully functional on Render Free Tier
 
-⚙ Worker / Scheduler
+##⚙ Worker / Scheduler
 
 The scheduler logic runs inside the API process.
 
@@ -170,14 +177,15 @@ status = published
 
 No external cron service is required.
 
-🎬 Demo Flow
-1️⃣ Login as Editor
+##🎬 Demo Flow
+
+###1️⃣ Login as Editor
 
 Open CMS Web
 
 Login using editor credentials
 
-2️⃣ Create / Edit Lesson
+###2️⃣ Create / Edit Lesson
 
 Create a Program
 
@@ -191,13 +199,13 @@ status = scheduled
 
 publish_at = future timestamp
 
-3️⃣ Wait for Worker
+###3️⃣ Wait for Worker
 
 Wait until publish_at time passes
 
 Scheduler auto-publishes the lesson
 
-4️⃣ Verify Public Catalog
+###4️⃣ Verify Public Catalog
 
 Open Public Catalog
 
@@ -210,10 +218,15 @@ Only published lessons appear
 Draft/scheduled lessons are hidden
 
 🔐 Access Control Summary
+
 Role	Permissions
+
 Admin	Full access
+
 Editor	Create/edit programs & lessons
+
 Viewer	View published content only
+
 📦 Docker Support
 
 Local stack includes:
@@ -228,7 +241,7 @@ postgres
 
 Run with:
 
-docker compose up --build
+###docker compose up --build
 
 ✅ Key Features
 
@@ -247,4 +260,5 @@ Production-ready API
 📌 Author
 
 Sathwik Burla
+
 GitHub: https://github.com/BurlaSathwik
