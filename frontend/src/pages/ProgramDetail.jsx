@@ -225,7 +225,7 @@ export default function ProgramDetail() {
                   const title = prompt("Lesson title?");
                   if (!title) return;
 
-                  await apiFetch("/admin/lessons", {
+                  await apiFetch("/admin/lessons/", {
                     method: "POST",
                     body: JSON.stringify({
                       term_id: t.id,
